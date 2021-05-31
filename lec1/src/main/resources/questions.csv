@@ -1,0 +1,22 @@
+[
+	{
+		"question": "satellite of the earth",
+		"correctAnswer": "moon"
+	},
+	{
+    	"question": "the fifth planet of the solar system",
+    	"correctAnswer": "jupiter"
+    },
+   	{
+        "question": "how far from the sun is the earth",
+       	"correctAnswer": "3"
+    },
+    {
+        "question": "How many planets are there in the solar system",
+        "correctAnswer": "9"
+    },
+    {
+        "question": "which planet is closest to the sun",
+        "correctAnswer": "mercury"
+    }
+]
