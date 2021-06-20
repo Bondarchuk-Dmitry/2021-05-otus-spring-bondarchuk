@@ -25,8 +25,8 @@ public class QuestionReaderCsvImpl implements QuestionReader {
 
     @Override
     public List<Question> readQuestions() {
-        try {
-            Reader reader = new InputStreamReader(resource.getInputStream());
+        try (Reader reader = new InputStreamReader(resource.getInputStream());) {
+
             CsvToBean<Question> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(Question.class)
                     .withIgnoreLeadingWhiteSpace(true)

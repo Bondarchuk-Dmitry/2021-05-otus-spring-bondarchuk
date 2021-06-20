@@ -12,7 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
-        QuestionService service = context.getBean(QuestionService.class);
-        service.startTesting();
+        QuestionService questionService = context.getBean(QuestionService.class);
+        questionService.start();
     }
+
 }
