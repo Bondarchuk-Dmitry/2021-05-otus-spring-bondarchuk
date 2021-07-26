@@ -11,4 +11,5 @@ public class Main {
         service.getQuestions().forEach(
                 question -> System.out.printf("%s?\n",question.getQuestion()));
     }
+
 }
