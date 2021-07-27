@@ -1,0 +1,8 @@
+spring:
+  messages:
+    basename: i18n/messages
+
+question:
+  locale: ruRU
+  correctAnswerPercent: 80
+  count: 5
