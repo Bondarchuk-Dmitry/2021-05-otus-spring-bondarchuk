@@ -1,8 +1,10 @@
 spring:
   messages:
     basename: i18n/messages
+    fallback-to-system-locale: false
 
 question:
-  locale: ruRU
+  file: questions.csv
+  locale: ru
   correctAnswerPercent: 80
   count: 5

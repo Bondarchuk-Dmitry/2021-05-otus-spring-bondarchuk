@@ -20,7 +20,7 @@ public class LocalizeServiceImpl implements LocalizeService {
 
     @Override
     public String getLocalizeText(String key) {
-        return getLocalizeText(key, null);
+        return getLocalizeText(key, new Object[] {});
     }
 
     @Override

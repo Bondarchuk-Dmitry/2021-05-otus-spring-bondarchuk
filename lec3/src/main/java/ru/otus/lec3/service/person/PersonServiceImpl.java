@@ -3,8 +3,8 @@ package ru.otus.lec3.service.person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.lec3.model.Person;
-import ru.otus.lec3.service.translate.LocalizeService;
 import ru.otus.lec3.service.io.IOService;
+import ru.otus.lec3.service.translate.LocalizeService;
 
 @Service
 @RequiredArgsConstructor

@@ -5,34 +5,38 @@ import org.springframework.stereotype.Service;
 import ru.otus.lec3.model.Person;
 import ru.otus.lec3.model.Question;
 import ru.otus.lec3.model.Status;
+import ru.otus.lec3.service.exception.QuestionException;
+import ru.otus.lec3.service.facade.LocalizeIO;
 import ru.otus.lec3.service.io.IOService;
 import ru.otus.lec3.service.person.PersonService;
 import ru.otus.lec3.service.reader.QuestionReader;
 import ru.otus.lec3.service.translate.LocalizeService;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionReader reader;
+    private final LocalizeService localize;
     private final IOService console;
+    private final LocalizeIO localizeOut;
     private final PersonService personService;
-    private final LocalizeService msgService;
     private final int percentAnswer;
     private final int questionCount;
 
     public QuestionServiceImpl(QuestionReader reader,
+                               LocalizeService localize,
                                IOService console,
+                               LocalizeIO localizeOut,
                                PersonService personService,
-                               LocalizeService msgService,
                                @Value("${question.correctAnswerPercent}") int percentAnswer,
                                @Value("${question.count}") int questionCount) {
         this.reader = reader;
+        this.localize = localize;
         this.console = console;
+        this.localizeOut = localizeOut;
         this.personService = personService;
-        this.msgService = msgService;
         this.percentAnswer = percentAnswer;
         this.questionCount = questionCount;
     }
@@ -41,8 +45,8 @@ public class QuestionServiceImpl implements QuestionService {
     public void start() {
         int correctAnswerCount = 0;
         List<Question> questions = reader.readQuestions();
-        if (checkQuestions(questions)) {
-            return;
+        if (!checkQuestions(questions)) {
+            throw new QuestionException("Ошибка: Тестирование не возможно, так как не достаточно тестов в базе");
         }
         Person person = personService.askPersonInfo();
         for (int i = 0; i < questionCount; i++) {
@@ -58,22 +62,15 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private boolean checkQuestions(List<Question> questions) {
-        if (questions.size() < questionCount) {
-            console.println(String.format("%s: %s",
-                    msgService.getLocalizeText("error"),
-                    msgService.getLocalizeText("error.notEnoughTests")));
-        }
-        return questions.size() < questionCount;
+        return questions.size() >= questionCount;
     }
 
     private void askQuestion(Question question) {
-        console.println(String.format("%s: %s",
-                msgService.getLocalizeText("question"),
-                question.getQuestion()));
+        localizeOut.println("question", question.getQuestion());
     }
 
     private String getAnswerUser() {
-        console.print(String.format("%s: ", msgService.getLocalizeText("answer")));
+        localizeOut.print("answer");
         return console.read();
     }
 
@@ -90,12 +87,10 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private void printResult(Person person, Status status, int percentCorrectAnswer) {
-        console.print(msgService.getLocalizeText("result",
-                Arrays.asList(
-                        person.getFirstName(),
-                        person.getLastName(),
-                        msgService.getLocalizeText(String.format("status.%s", status.getName())),
-                        percentCorrectAnswer).toArray()
-        ));
+        localizeOut.print("result",
+                person.getFirstName(),
+                person.getLastName(),
+                localize.getLocalizeText(String.format("status.%s", status.getName())),
+                String.valueOf(percentCorrectAnswer));
     }
 }
