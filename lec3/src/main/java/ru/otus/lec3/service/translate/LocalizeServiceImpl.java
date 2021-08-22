@@ -9,23 +9,24 @@ import java.util.Locale;
 @Service
 public class LocalizeServiceImpl implements LocalizeService {
 
-    private final String locale;
+    private final Locale locale;
     private final MessageSource msg;
 
-    public LocalizeServiceImpl(@Value("${question.locale}") String locale,
-                               MessageSource msg) {
+    public LocalizeServiceImpl(
+            @Value("#{T(java.util.Locale).forLanguageTag('${question.locale}')}") Locale locale,
+            MessageSource msg) {
         this.locale = locale;
         this.msg = msg;
     }
 
     @Override
     public String getLocalizeText(String key) {
-        return getLocalizeText(key, new Object[] {});
+        return getLocalizeText(key, new Object());
     }
 
     @Override
-    public String getLocalizeText(String key, Object[] objects) {
-        return msg.getMessage(key, objects, Locale.forLanguageTag(locale));
+    public String getLocalizeText(String key, Object... objects) {
+        return msg.getMessage(key, objects, locale);
     }
 
 }

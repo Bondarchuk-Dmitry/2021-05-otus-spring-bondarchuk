@@ -7,10 +7,8 @@ import ru.otus.lec3.model.Question;
 import ru.otus.lec3.model.Status;
 import ru.otus.lec3.service.exception.QuestionException;
 import ru.otus.lec3.service.facade.LocalizeIO;
-import ru.otus.lec3.service.io.IOService;
 import ru.otus.lec3.service.person.PersonService;
 import ru.otus.lec3.service.reader.QuestionReader;
-import ru.otus.lec3.service.translate.LocalizeService;
 
 import java.util.List;
 
@@ -18,24 +16,18 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionReader reader;
-    private final LocalizeService localize;
-    private final IOService console;
-    private final LocalizeIO localizeOut;
+    private final LocalizeIO localizeIO;
     private final PersonService personService;
     private final int percentAnswer;
     private final int questionCount;
 
     public QuestionServiceImpl(QuestionReader reader,
-                               LocalizeService localize,
-                               IOService console,
-                               LocalizeIO localizeOut,
+                               LocalizeIO localizeIO,
                                PersonService personService,
                                @Value("${question.correctAnswerPercent}") int percentAnswer,
                                @Value("${question.count}") int questionCount) {
         this.reader = reader;
-        this.localize = localize;
-        this.console = console;
-        this.localizeOut = localizeOut;
+        this.localizeIO = localizeIO;
         this.personService = personService;
         this.percentAnswer = percentAnswer;
         this.questionCount = questionCount;
@@ -66,12 +58,12 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private void askQuestion(Question question) {
-        localizeOut.println("question", question.getQuestion());
+        localizeIO.println("question", question.getQuestion());
     }
 
     private String getAnswerUser() {
-        localizeOut.print("answer");
-        return console.read();
+        localizeIO.print("answer");
+        return localizeIO.read();
     }
 
     private boolean checkAnswer(String answer, Question question) {
@@ -87,10 +79,10 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     private void printResult(Person person, Status status, int percentCorrectAnswer) {
-        localizeOut.print("result",
+        localizeIO.print("result",
                 person.getFirstName(),
                 person.getLastName(),
-                localize.getLocalizeText(String.format("status.%s", status.getName())),
+                localizeIO.getLocalizeText(String.format("status.%s", status.getName())),
                 String.valueOf(percentCorrectAnswer));
     }
 }

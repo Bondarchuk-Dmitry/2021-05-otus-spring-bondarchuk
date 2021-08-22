@@ -5,4 +5,6 @@ public interface LocalizeIO {
     void print(String msgKey,  Object... args);
     void println(String msgKey);
     void println(String msgKey, Object... args);
+    String read();
+    String getLocalizeText(String msgKey);
 }

@@ -2,8 +2,7 @@ spring:
   messages:
     basename: i18n/messages
 question:
-  file: questions.csv
-  locale: ruRU
+  locale: ru
   correctAnswerPercent: 80
   count: 3
 
@@ -14,9 +13,8 @@ spring:
     activate:
       on-profile: bad
   messages:
-    basename: i18n/messages
+    basename: i18n/badMessages
 question:
-  file: bad_questions.csv
-  locale: ruRU
+  locale: ru
   correctAnswerPercent: 80
   count: 5

@@ -31,4 +31,14 @@ public class LocalizeIOImpl implements LocalizeIO {
     public void println(String msgKey, Object... args) {
         io.println(localize.getLocalizeText(msgKey, args));
     }
+
+    @Override
+    public String read() {
+        return io.read();
+    }
+
+    @Override
+    public String getLocalizeText(String msgKey) {
+        return localize.getLocalizeText(msgKey);
+    }
 }

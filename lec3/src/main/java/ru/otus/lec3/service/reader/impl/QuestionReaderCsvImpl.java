@@ -16,10 +16,10 @@ import java.util.List;
 @Component
 public class QuestionReaderCsvImpl implements QuestionReader {
 
-
     private final Resource resource;
 
-    public QuestionReaderCsvImpl(@Value("classpath:${question.file}") Resource resource) {
+    public QuestionReaderCsvImpl(
+            @Value("classpath:#{localizeServiceImpl.getLocalizeText('question.file')}") Resource resource) {
         this.resource = resource;
     }
 
