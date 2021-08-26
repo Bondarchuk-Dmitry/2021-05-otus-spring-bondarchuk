@@ -2,19 +2,7 @@ spring:
   messages:
     basename: i18n/messages
 question:
+  fileName: questions
   locale: ru
   correctAnswerPercent: 80
   count: 3
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: bad
-  messages:
-    basename: i18n/badMessages
-question:
-  locale: ru
-  correctAnswerPercent: 80
-  count: 5

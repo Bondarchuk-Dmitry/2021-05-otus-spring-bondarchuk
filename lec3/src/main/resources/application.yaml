@@ -4,6 +4,7 @@ spring:
     fallback-to-system-locale: false
 
 question:
+  fileName: questions
   locale: ru
   correctAnswerPercent: 80
-  count: 50
+  count: 5
