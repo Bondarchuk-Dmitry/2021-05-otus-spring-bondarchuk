@@ -1,0 +1,9 @@
+
+${AnsiBackground.BRIGHT_WHITE}     ██████╗ ████████╗██╗   ██╗███████╗ ${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_WHITE}    ██╔═══██╗╚══██╔══╝██║   ██║██╔════╝ ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLUE}    ██║   ██║   ██║   ██║   ██║███████╗ ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLUE}    ██║   ██║   ██║   ██║   ██║╚════██║ ${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_RED}    ╚██████╔╝   ██║   ╚██████╔╝███████║ ${AnsiBackground.DEFAULT}
+${AnsiBackground.BRIGHT_RED}     ╚═════╝    ╚═╝    ╚═════╝ ╚══════╝ ${AnsiBackground.DEFAULT}
+
+
