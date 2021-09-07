@@ -1,0 +1,13 @@
+spring:
+  messages:
+    basename: i18n/messages
+    fallback-to-system-locale: false
+  shell:
+    interactive:
+      enabled: true
+
+question:
+  fileName: questions
+  locale: ru
+  correctAnswerPercent: 80
+  count: 5
