@@ -1,24 +1,30 @@
 databaseChangeLog:
   - changeSet:
-      id: 2021-08-01--001-genre
+      id: 2021-08-01--001-author
       author: dmitriy.bondarchuk
       changes:
         - createTable:
-            tableName: genre
-            remarks: Жанр
+            tableName: author
+            remarks: Автор
             columns:
               - column:
                   name: id
-                  type: integer
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    primaryKeyName: genre_pk
+                    primaryKeyName: author_pk
                     nullable: false
               - column:
-                  name: name
+                  name: first_name
                   type: varchar(50)
-                  remarks: Название
+                  remarks: Имя
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(50)
+                  remarks: Фамилия
                   constraints:
                     nullable: false
               - column:

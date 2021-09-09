@@ -9,7 +9,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: integer
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -23,7 +23,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: genre_id
-                  type: integer
+                  type: bigint
                   remarks: Идентификатор жанра
                   constraints:
                     nullable: false
@@ -31,7 +31,7 @@ databaseChangeLog:
                     references: genre(id)
               - column:
                   name: author_id
-                  type: integer
+                  type: bigint
                   remarks: Идентификатор автора
                   constraints:
                     nullable: false

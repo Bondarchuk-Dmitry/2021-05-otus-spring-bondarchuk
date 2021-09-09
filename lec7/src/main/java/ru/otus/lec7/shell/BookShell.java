@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import ru.otus.lec7.domain.dto.BookDto;
+import ru.otus.lec7.domain.Book;
 import ru.otus.lec7.service.book.BookService;
 
 import java.util.List;
@@ -16,12 +16,12 @@ public class BookShell {
     private final BookService bookService;
 
     @ShellMethod(key = {"fb", "findBook"}, value = "Поиск книги (Пример: fb {id})")
-    public BookDto findBook(@ShellOption({"id", "bookId"}) long id) {
+    public Book findBook(@ShellOption({"id", "bookId"}) long id) {
         return bookService.findBookById(id);
     }
 
     @ShellMethod(key = {"ab", "allBook"}, value = "Поиск книги (Пример: ab)")
-    public List<BookDto> getAllBook() {
+    public List<Book> getAllBook() {
         return bookService.getAll();
     }
 

@@ -1,15 +1,15 @@
 databaseChangeLog:
   - changeSet:
-      id: 2021-08-01--001-author-test-data
+      id: 2021-08-01--001-book-test-data
       author: dmitriy.bondarchuk
       context: test
       runOnChange: true
       loadUpdateData:
         primaryKey: id
-        file: db/changelog/data/data/2021-08-01--001-author.csv
+        file: db/changelog/test/data/data/2021-08-01--001-book.csv
         relativeToChangeLogFile: true
         separator: ;
         quotChar: '"'
         seperator: ';'
         encoding: UTF-8
-        tableName: author
+        tableName: book

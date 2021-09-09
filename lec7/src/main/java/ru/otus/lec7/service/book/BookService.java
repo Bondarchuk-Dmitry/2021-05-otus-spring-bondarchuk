@@ -1,14 +1,14 @@
 package ru.otus.lec7.service.book;
 
-import ru.otus.lec7.domain.dto.BookDto;
+import ru.otus.lec7.domain.Book;
 
 import java.util.List;
 
 public interface BookService {
 
-    BookDto findBookById(Long id);
+    Book findBookById(Long id);
 
-    List<BookDto> getAll();
+    List<Book> getAll();
 
     Long insert(String name, Long authorId, Long genreId);
 

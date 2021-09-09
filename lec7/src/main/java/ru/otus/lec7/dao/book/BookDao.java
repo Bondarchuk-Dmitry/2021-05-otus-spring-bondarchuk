@@ -7,13 +7,11 @@ import java.util.Optional;
 
 public interface BookDao {
 
-    Long lastId();
-
     Optional<Book> findBookById(long id);
 
     List<Book> getAll();
 
-    void insert(Book book);
+    Long insert(Book book);
 
     void update(Book book);
 

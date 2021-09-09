@@ -6,7 +6,7 @@ databaseChangeLog:
       runOnChange: true
       loadUpdateData:
         primaryKey: id
-        file: db/changelog/data/data/2021-08-01--001-genre.csv
+        file: db/changelog/test/data/data/2021-08-01--001-genre.csv
         relativeToChangeLogFile: true
         separator: ;
         quotChar: '"'

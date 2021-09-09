@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class AuthorDaoImpl implements AuthorDao {
+public class AuthorDaoJdbc implements AuthorDao {
 
     private final NamedParameterJdbcTemplate jdbc;
 

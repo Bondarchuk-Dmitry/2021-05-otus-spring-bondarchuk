@@ -3,7 +3,6 @@ package ru.otus.lec7.util;
 import ru.otus.lec7.domain.Author;
 import ru.otus.lec7.domain.Book;
 import ru.otus.lec7.domain.Genre;
-import ru.otus.lec7.domain.dto.BookDto;
 
 public class MockEntityUtil {
 
@@ -15,6 +14,14 @@ public class MockEntityUtil {
                 .build();
     }
 
+    public static Author getAuthorPushkin() {
+        return Author.builder()
+                .id(1L)
+                .firstName("Александр")
+                .lastName("Пушкин")
+                .build();
+    }
+
     public static Genre getGenre() {
         return Genre.builder()
                 .id(2L)
@@ -22,12 +29,19 @@ public class MockEntityUtil {
                 .build();
     }
 
+    public static Genre getGenrePoetry() {
+        return Genre.builder()
+                .id(1L)
+                .name("Поэзия")
+                .build();
+    }
+
     public static Book getBook() {
         return Book.builder()
                 .id(1L)
                 .name("Java. Библиотека профессионала. Том 1. Основы")
-                .authorId(2L)
-                .genreId(2L)
+                .author(getAuthor())
+                .genre(getGenre())
                 .build();
     }
 
@@ -35,17 +49,17 @@ public class MockEntityUtil {
         return Book.builder()
                 .id(2L)
                 .name("test")
-                .authorId(1L)
-                .genreId(1L)
+                .author(getAuthorPushkin())
+                .genre(getGenrePoetry())
                 .build();
     }
 
-    public static BookDto getBookDto(Book book) {
-        return BookDto.builder()
-                .id(book.getId())
-                .name(book.getName())
-                .author(getAuthor())
-                .genre(getGenre())
+    public static Book getInsertBook() {
+        return Book.builder()
+                .id(0L)
+                .name("test")
+                .author(getAuthorPushkin())
+                .genre(getGenrePoetry())
                 .build();
     }
 
