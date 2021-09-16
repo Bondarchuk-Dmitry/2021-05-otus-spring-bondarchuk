@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021-08-01--001-genre
+      author: dmitriy.bondarchuk
+      changes:
+        - createTable:
+            tableName: genre
+            remarks: Жанр
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: genre_pk
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  remarks: Название
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp without time zone
+                  defaultValue: now()
+                  constraints:
+                    nullable: false

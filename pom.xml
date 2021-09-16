@@ -16,5 +16,6 @@
         <module>lec3</module>
         <module>lec5</module>
         <module>lec7</module>
+        <module>lec9</module>
     </modules>
 </project>
