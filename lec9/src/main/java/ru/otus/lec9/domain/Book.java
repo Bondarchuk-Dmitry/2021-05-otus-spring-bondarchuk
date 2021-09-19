@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "book")
+@NamedEntityGraph(name = "otus-book-author-genre-entity-graph",
+        attributeNodes = {@NamedAttributeNode("author"), @NamedAttributeNode("genre")})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +25,11 @@ public class Book {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Author.class)
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Genre.class)
     @JoinColumn(name = "genre_id")
     private Genre genre;
 

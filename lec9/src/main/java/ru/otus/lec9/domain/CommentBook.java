@@ -19,7 +19,7 @@ public class CommentBook {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
 

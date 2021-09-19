@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.otus.lec9.domain.Book;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +23,10 @@ public class BookRepositoryJpa implements BookRepository {
 
     @Override
     public List<Book> getAll() {
-        return em.createQuery("select a from Book a", Book.class)
-                .getResultList();
+        EntityGraph<?> entityGraph = em.getEntityGraph("otus-book-author-genre-entity-graph");
+        TypedQuery<Book> query =  em.createQuery("select b from Book b", Book.class);
+        query.setHint("javax.persistence.fetchgraph", entityGraph);
+        return query.getResultList();
     }
 
     @Override

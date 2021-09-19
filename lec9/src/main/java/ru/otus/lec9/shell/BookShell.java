@@ -19,7 +19,8 @@ public class BookShell {
 
     @ShellMethod(key = {"fb", "findBook"}, value = "Поиск книги (Пример: fb {id})")
     public String findBook(@ShellOption({"id", "bookId"}) long id) {
-        return bookTransformer.getTransformBook(bookService.findBookById(id));
+        Book book = bookService.findBookById(id);
+        return bookTransformer.getTransformBook(book) + bookTransformer.getTransformAllComments(book.getBookComments());
     }
 
     @ShellMethod(key = {"ab", "allBook"}, value = "Поиск всех книг (Пример: ab)")

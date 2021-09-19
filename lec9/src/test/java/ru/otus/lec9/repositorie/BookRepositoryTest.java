@@ -23,6 +23,8 @@ public class BookRepositoryTest {
 
     public final static long BOOK_ID = 1L;
 
+    private static final int EXPECTED_QUERIES_COUNT = 2;
+
     @Autowired
     private BookRepositoryJpa bookRepository;
 
@@ -52,8 +54,15 @@ public class BookRepositoryTest {
     }
 
     @Test
-    @DisplayName("Все книги")
+    @DisplayName("Все книги. Исключает N+1")
     public void getAllTest() {
+        SessionFactory sessionFactory = em.getEntityManager()
+                .getEntityManagerFactory()
+                .unwrap(SessionFactory.class);
+        sessionFactory
+                .getStatistics()
+                .setStatisticsEnabled(true);
+
         List<Book> books = bookRepository.getAll();
         Book mockBook = MockEntityUtil.getBook();
 
@@ -64,19 +73,8 @@ public class BookRepositoryTest {
                 .anyMatch(book -> book.getAuthor().equals(mockBook.getAuthor()))
                 .anyMatch(book -> book.getGenre().equals(mockBook.getGenre()))
                 .anyMatch(book -> book.getBookComments().size() > 0);
-    }
 
-    @Test
-    @DisplayName("Исключает N+1")
-    public void excludesNPlus1Test() {
-        SessionFactory sessionFactory = em.getEntityManager()
-                .getEntityManagerFactory()
-                .unwrap(SessionFactory.class);
-        sessionFactory
-                .getStatistics()
-                .setStatisticsEnabled(true);
-        List<Book> books = bookRepository.getAll();
-        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(4);
+        assertThat(sessionFactory.getStatistics().getPrepareStatementCount()).isEqualTo(EXPECTED_QUERIES_COUNT);
     }
 
     @Test
