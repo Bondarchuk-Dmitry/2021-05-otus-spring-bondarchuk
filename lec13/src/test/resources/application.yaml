@@ -1,0 +1,17 @@
+spring:
+  data:
+    mongodb:
+      port: 0
+      database: bookdb
+  shell:
+    interactive:
+      enabled: false
+
+mongock:
+  runner-type: "ApplicationRunner"
+  change-logs-scan-package:
+    - ru.otus.lec13.mongock.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
