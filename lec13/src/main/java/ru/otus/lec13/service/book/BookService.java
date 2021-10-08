@@ -6,14 +6,16 @@ import java.util.List;
 
 public interface BookService {
 
-    Book findBookById(Long id);
+    Book findBookById(String id);
 
     List<Book> getAll();
 
-    Book save(String name, Long authorId, Long genreId);
+    Book save(String name, String authorId, String genreId);
 
-    void update(Long id, String name, Long authorId, Long genreId);
+    Book addComment(String bookId, String text);
 
-    void delete(Long id);
+    void update(String id, String name, String authorId, String genreId);
+
+    void delete(String id);
 
 }

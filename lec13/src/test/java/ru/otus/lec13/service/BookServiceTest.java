@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class BookServiceTest {
 
-    public final static long BOOK_ID = 1L;
+    public final static String BOOK_ID = "615fffca547bf907bda74ed5";
 
     @Autowired
     private BookServiceImpl bookService;
@@ -47,7 +47,7 @@ public class BookServiceTest {
     @Test
     @DisplayName("Ошибка BookNotFoundException, если запись не найдена в БД по указанному id")
     public void itShouldThrowBookNotFoundExceptionWhenRecordWasNotFound() {
-        assertThatCode(() -> bookService.findBookById(0L))
+        assertThatCode(() -> bookService.findBookById(""))
                 .isInstanceOf(BookNotFoundException.class);
     }
 

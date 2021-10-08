@@ -9,23 +9,21 @@ import ru.otus.lec13.domain.CommentBook;
 import ru.otus.lec13.domain.Genre;
 import ru.otus.lec13.repositorie.author.AuthorRepository;
 import ru.otus.lec13.repositorie.book.BookRepository;
-import ru.otus.lec13.repositorie.comment.CommentRepository;
 import ru.otus.lec13.repositorie.genre.GenreRepository;
-import ru.otus.lec13.service.generator.SequenceGenerator;
 
 import java.util.List;
 
 @ChangeLog
 public class DatabaseChangelogTest {
 
-    public final static Author AUTHOR_PUSHKIN = new Author(1L, "Александр", "Пушкин");
-    public final static Author AUTHOR_HORSTMAN = new Author(2L, "Кей", "Хорстман");
+    public final static Author AUTHOR_PUSHKIN = new Author("61601c4040cb0c51c118704a", "Александр", "Пушкин");
+    public final static Author AUTHOR_HORSTMAN = new Author("61601c1540cb0c51c1187048", "Кей", "Хорстман");
 
-    public final static Genre GENRE_POETRY = new Genre(1L, "Поэзия");
-    public final static Genre GENRE_NON_FICTION_LITERATURE = new Genre(2L, "Нехудожественная литература");
+    public final static Genre GENRE_POETRY = new Genre("61601c6f6592350e22a07fbd", "Поэзия");
+    public final static Genre GENRE_NON_FICTION_LITERATURE = new Genre("61601c5e6592350e22a07fbb", "Нехудожественная литература");
 
-    public final static CommentBook COMMENT_BOOK_TEST1_FOR_HORSTMAN = new CommentBook(1L, "test1", 1L);
-    public final static CommentBook COMMENT_BOOK_TEST2_FOR_HORSTMAN = new CommentBook(2L, "test2", 1L);
+    public final static CommentBook COMMENT_BOOK_TEST1_FOR_HORSTMAN = new CommentBook("test1");
+    public final static CommentBook COMMENT_BOOK_TEST2_FOR_HORSTMAN = new CommentBook("test2");
 
     @ChangeSet(order = "001", id = "dropDb", author = "dmitriy.bondarchuk", runAlways = true)
     public void dropDb(MongoDatabase db) {
@@ -43,16 +41,12 @@ public class DatabaseChangelogTest {
     }
 
     @ChangeSet(order = "004", id = "insertBooks", author = "dmitriy.bondarchuk")
-    public void insertBooks(BookRepository repository, SequenceGenerator seqGenerator) {
-        repository.save(new Book(seqGenerator.getNextId(Book.SEQUENCE_NAME),
+    public void insertBooks(BookRepository repository) {
+        repository.save(new Book("615fffca547bf907bda74ed5",
                 "Java. Библиотека профессионала. Том 1. Основы",
-                AUTHOR_HORSTMAN.getId(),
-                GENRE_NON_FICTION_LITERATURE.getId()
+                AUTHOR_HORSTMAN,
+                GENRE_NON_FICTION_LITERATURE,
+                List.of(COMMENT_BOOK_TEST1_FOR_HORSTMAN, COMMENT_BOOK_TEST2_FOR_HORSTMAN)
         ));
-    }
-
-    @ChangeSet(order = "005", id = "insertComments", author = "dmitriy.bondarchuk")
-    public void insertComment(CommentRepository repository) {
-        repository.saveAll(List.of(COMMENT_BOOK_TEST1_FOR_HORSTMAN, COMMENT_BOOK_TEST2_FOR_HORSTMAN));
     }
 }

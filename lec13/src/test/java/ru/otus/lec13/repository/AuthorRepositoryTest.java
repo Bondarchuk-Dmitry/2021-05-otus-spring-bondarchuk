@@ -3,7 +3,7 @@ package ru.otus.lec13.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.lec13.domain.Author;
 import ru.otus.lec13.repositorie.author.AuthorRepository;
 import ru.otus.lec13.util.MockEntityUtil;
@@ -13,10 +13,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@SpringBootTest
+@DataMongoTest
 public class AuthorRepositoryTest {
 
-    public final static long AUTHOR_ID = 2L;
+    public final static String AUTHOR_ID = "61601c1540cb0c51c1187048";
 
     @Autowired
     private AuthorRepository repository;
@@ -27,9 +27,11 @@ public class AuthorRepositoryTest {
         Author author = repository.findById(AUTHOR_ID)
                 .orElse(new Author());
         Author mockAuthor = MockEntityUtil.getAuthor();
+        System.out.println("repo = " + author.getId());
+        System.out.println("mock = " + mockAuthor.getId());
         assertThat(author)
                 .isNotNull()
-                .matches(a -> a.getId() == mockAuthor.getId())
+                .matches(a -> a.getId().equals(mockAuthor.getId()))
                 .matches(a -> a.getFirstName().equals(mockAuthor.getFirstName()))
                 .matches(a -> a.getLastName().equals(mockAuthor.getLastName()));
     }
@@ -43,7 +45,7 @@ public class AuthorRepositoryTest {
         assertThat(authors)
                 .isNotNull()
                 .hasSize(2)
-                .anyMatch(author -> author.getId() == mockAuthor.getId())
+                .anyMatch(author -> author.getId().equals(mockAuthor.getId()))
                 .anyMatch(author -> author.getFirstName().equals(mockAuthor.getFirstName()))
                 .anyMatch(author -> author.getLastName().equals(mockAuthor.getLastName()));
     }

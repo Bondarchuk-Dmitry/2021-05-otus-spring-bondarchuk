@@ -3,7 +3,7 @@ package ru.otus.lec13.repository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import ru.otus.lec13.domain.Book;
 import ru.otus.lec13.repositorie.book.BookRepository;
 import ru.otus.lec13.util.MockEntityUtil;
@@ -12,10 +12,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@DataMongoTest
 public class BookRepositoryTest {
 
-    public final static long BOOK_ID = 1L;
+    public final static String BOOK_ID = "615fffca547bf907bda74ed5";
 
     @Autowired
     private BookRepository bookRepository;
@@ -30,8 +30,8 @@ public class BookRepositoryTest {
         assertThat(book)
                 .isNotNull()
                 .matches(b -> b.getName().equals(mockBook.getName()))
-                .matches(b -> b.getAuthorId().equals(mockBook.getAuthor().getId()))
-                .matches(b -> b.getGenreId().equals(mockBook.getGenre().getId()));
+                .matches(b -> b.getAuthor().equals(mockBook.getAuthor()))
+                .matches(b -> b.getGenre().equals(mockBook.getGenre()));
     }
 
     @Test
@@ -44,8 +44,8 @@ public class BookRepositoryTest {
                 .isNotNull()
                 .hasSize(1)
                 .anyMatch(book -> book.getName().equals(mockBook.getName()))
-                .anyMatch(book -> book.getAuthorId().equals(mockBook.getAuthor().getId()))
-                .anyMatch(book -> book.getGenreId().equals(mockBook.getGenre().getId()));
+                .anyMatch(book -> book.getAuthor().equals(mockBook.getAuthor()))
+                .anyMatch(book -> book.getGenre().equals(mockBook.getGenre()));
     }
 
 }

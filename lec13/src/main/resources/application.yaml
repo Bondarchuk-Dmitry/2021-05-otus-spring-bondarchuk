@@ -1,8 +1,9 @@
 spring:
   data:
     mongodb:
-      port: 0
+      port: 27017
       database: bookdb
+      host: localhost
 
 mongock:
   runner-type: "InitializingBean"
