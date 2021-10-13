@@ -1,0 +1,79 @@
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать книгу</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <div class="mt-5 p-2 border border-primary rounded">
+        <div class="p-2 mb-2 text-center bg-success text-white" th:text="|Редактирование книги. ID = ${book.id}|"></div>
+        <hr>
+        <form id="edit-form" th:action="@{/book/edit(id=${book.id})}" th:method="post" th:object="${editBook}">
+            <div class="form-group row">
+                <label for="book-name" class="col-sm-2 col-form-label">Название книги:</label>
+                <div class="col-sm-6">
+                    <input id="book-name" name="bookName" type="text" th:field="${book.name}" class="form-control">
+                </div>
+                <div class="p-1 mb-2 bg-danger text-white rounded" th:if="${#fields.hasErrors('name')}"
+                     th:errors="*{name}">
+                    Error
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="author" class="col-sm-2 col-form-label">Автор:</label>
+                <div class="col-sm-6">
+                    <select id="author" size="1" name="authorId" class="form-control">
+                        <div th:each="author : ${authors}">
+                            <option th:value="${author.id}" th:text="${author.getFullName()}"></option>
+                        </div>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="genre" class="col-sm-2 col-form-label">Жанр:</label>
+                <div class="col-sm-6">
+                    <select id="genre" size="1" name="genreId" class="form-control">
+                        <div th:each="genre : ${genres}">
+                            <option th:value="${genre.id}" th:text="${genre.name}"></option>
+                        </div>
+                    </select>
+                </div>
+            </div>
+            <div class="col text-center">
+                <button type="submit" class="btn btn-success">Сохранить изменения</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mt-5 p-2 border border-primary rounded">
+        <div class="p-2 mb-2 text-center bg-success text-white">Комментарий к книге</div>
+        <form id="add-comment-form" th:action="@{/book/addComment(id=${book.id})}" th:method="post">
+            <div class="form-group row">
+                <label for="comment-text" class="col-sm-2 col-form-label">Текст комменатрия:</label>
+                <div class="col-sm-6">
+                    <input id="comment-text" name="commentText" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="col text-center">
+                <button type="submit" class="btn btn-success">Добавить комментарий</button>
+            </div>
+        </form>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Текст</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment : ${book.bookComments}">
+                <td th:text="${comment.id}"></td>
+                <td th:text="${comment.text}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
