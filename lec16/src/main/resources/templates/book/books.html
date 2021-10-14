@@ -13,13 +13,14 @@
 </nav>
 <hr>
 <div class="px-5 border-dark ">
-    <form id="add-form" th:action="@{/book/add}" th:method="post" th:object="${addBook}">
+    <form id="add-form" th:action="@{/book/add}" th:method="post" th:object="${newBook}">
         <div class="form-group row">
             <label for="book-name" class="col-sm-2 col-form-label">Название книги:</label>
             <div class="col-sm-6">
                 <input id="book-name" name="bookName" type="text" th:field="*{name}" class="form-control">
             </div>
-            <div class="p-1 mb-2 bg-danger text-white rounded" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+            <div class="p-1 mb-2 bg-danger text-white rounded" th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}"/>
         </div>
         <div class="form-group row">
             <label for="author" class="col-sm-2 col-form-label">Автор:</label>
@@ -63,8 +64,11 @@
         <td th:text="${book.getGenre().getName()}"></td>
         <td>
             <a th:href="@{/book/edit(id=${book.id})}">Редактировать</a>
-            &nbsp;&nbsp;&nbsp;
-            <a th:href="@{/book/delete(id=${book.id})}">Удалить</a>
+            &nbsp;&nbsp;
+            <form th:action="@{/book/delete(id=${book.id})}" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <a href="#" onclick="document.forms[1].submit();">Удалить</a>
+            </form>
         </td>
     </tr>
     </tbody>

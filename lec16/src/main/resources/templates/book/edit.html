@@ -9,7 +9,7 @@
     <div class="mt-5 p-2 border border-primary rounded">
         <div class="p-2 mb-2 text-center bg-success text-white" th:text="|Редактирование книги. ID = ${book.id}|"></div>
         <hr>
-        <form id="edit-form" th:action="@{/book/edit(id=${book.id})}" th:method="post" th:object="${editBook}">
+        <form id="edit-form" th:action="@{/book/edit(id=${book.id})}" th:method="post" th:object="${oldBook}">
             <div class="form-group row">
                 <label for="book-name" class="col-sm-2 col-form-label">Название книги:</label>
                 <div class="col-sm-6">
@@ -25,7 +25,8 @@
                 <div class="col-sm-6">
                     <select id="author" size="1" name="authorId" class="form-control">
                         <div th:each="author : ${authors}">
-                            <option th:value="${author.id}" th:text="${author.getFullName()}"></option>
+                            <option th:value="${author.id}" th:text="${author.getFullName()}"
+                                    th:selected="(${book.author.id} == ${author.id})"></option>
                         </div>
                     </select>
                 </div>
@@ -35,7 +36,8 @@
                 <div class="col-sm-6">
                     <select id="genre" size="1" name="genreId" class="form-control">
                         <div th:each="genre : ${genres}">
-                            <option th:value="${genre.id}" th:text="${genre.name}"></option>
+                            <option th:value="${genre.id}" th:text="${genre.name}"
+                                    th:selected="(${book.genre.id} == ${genre.id})"></option>
                         </div>
                     </select>
                 </div>
@@ -48,7 +50,7 @@
 
     <div class="mt-5 p-2 border border-primary rounded">
         <div class="p-2 mb-2 text-center bg-success text-white">Комментарий к книге</div>
-        <form id="add-comment-form" th:action="@{/book/addComment(id=${book.id})}" th:method="post">
+        <form id="add-comment-form" th:action="@{/comment(id=${book.id})}" th:method="post">
             <div class="form-group row">
                 <label for="comment-text" class="col-sm-2 col-form-label">Текст комменатрия:</label>
                 <div class="col-sm-6">

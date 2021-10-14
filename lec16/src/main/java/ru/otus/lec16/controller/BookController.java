@@ -4,85 +4,86 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import ru.otus.lec16.model.RequestSaveBook;
 import ru.otus.lec16.service.author.AuthorService;
 import ru.otus.lec16.service.book.BookService;
-import ru.otus.lec16.service.comment.CommentService;
 import ru.otus.lec16.service.genre.GenreService;
 
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("book")
 public class BookController {
 
     private final BookService bookService;
     private final AuthorService authorService;
     private final GenreService genreService;
-    private final CommentService commentService;
 
-    @GetMapping
+    @GetMapping("book")
     public String getAll(Model model) {
         model.addAttribute("books", bookService.getAll());
         model.addAttribute("authors", authorService.getAll());
         model.addAttribute("genres", genreService.getAll());
-        if (!model.containsAttribute("addBook")) {
-            model.addAttribute("addBook", new RequestSaveBook());
+        if (!model.containsAttribute("newBook")) {
+            model.addAttribute("newBook", new RequestSaveBook());
         }
         return "book/books";
     }
 
-    @PostMapping("/add")
-    public String add(@Valid @ModelAttribute("addBook") RequestSaveBook book, BindingResult result, Model model) {
+    @PostMapping("book/add")
+    public RedirectView add(@Valid @ModelAttribute("newBook") RequestSaveBook book,
+                      BindingResult result,
+                      RedirectAttributes redirectAttrs
+    ) {
         if (result.hasErrors()) {
-            return this.getAll(model);
+            redirectAttrs
+                    .addFlashAttribute("org.springframework.validation.BindingResult.newBook", result)
+                    .addFlashAttribute("newBook", book);
+            return new RedirectView("/book");
         }
         bookService.save(book.getName(), book.getAuthorId(), book.getGenreId());
-        return this.getAll(model);
+        return new RedirectView("/book");
     }
 
-    @GetMapping("/edit")
+    @GetMapping("book/edit")
     public String edit(@RequestParam("id") long id, Model model) {
         model.addAttribute("book", bookService.findBookById(id));
         model.addAttribute("authors", authorService.getAll());
         model.addAttribute("genres", genreService.getAll());
-        if (!model.containsAttribute("editBook")) {
-            model.addAttribute("editBook", new RequestSaveBook());
+        if (!model.containsAttribute("oldBook")) {
+            model.addAttribute("oldBook", new RequestSaveBook());
         }
         return "book/edit";
     }
 
-    @PostMapping("/edit")
-    public String edit(@RequestParam("id") long id,
-                       @Valid @ModelAttribute("editBook") RequestSaveBook book,
-                       BindingResult result,
-                       Model model) {
-        if (result.hasErrors()) {
-            return this.edit(id, model);
-        }
-        bookService.update(id, book.getName(), book.getAuthorId(), book.getGenreId());
-        return this.getAll(model);
-    }
-
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") long id, Model model) {
-        bookService.delete(id);
-        return this.getAll(model);
-    }
-
-    @PostMapping("addComment")
-    public RedirectView addComment(
-            @RequestParam("id") long id,
-            String commentText
+    @PostMapping("book/edit")
+    public RedirectView edit(@RequestParam("id") long bookId,
+                             @Valid @ModelAttribute("oldBook") RequestSaveBook book,
+                             BindingResult result,
+                             RedirectAttributes redirectAttrs
     ) {
-        commentService.save(commentText, id);
-        return new RedirectView("/book/edit?id=" + id);
+        if (result.hasErrors()) {
+            redirectAttrs
+                    .addAttribute("id", bookId)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.oldBook", result)
+                    .addFlashAttribute("oldBook", book);
+            return new RedirectView("/book/edit?id={id}");
+        }
+        bookService.update(bookId, book.getName(), book.getAuthorId(), book.getGenreId());
+        return new RedirectView("/book");
     }
+
+    @DeleteMapping("book/delete")
+    public RedirectView delete(@RequestParam("id") long id) {
+        bookService.delete(id);
+        return new RedirectView("/book");
+    }
+
 }
