@@ -1,0 +1,33 @@
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+<nav class="navbar navbar-dark">
+    <a href="/" class="btn btn-success"> Главная страница </a>
+</nav>
+<hr>
+<div class="container">
+    <table class="table table-bordered " >
+        <thead>
+        <tr class="bg-secondary">
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>URL</td>
+            <td th:text="${url}">URL</td>
+        </tr>
+        <tr>
+            <td>Message</td>
+            <td th:text="${exception}">Message</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

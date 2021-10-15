@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021-08-01--001-author-test-data
+      author: dmitriy.bondarchuk
+      context: dev
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: id
+        file: classpath:db/changelog/data/data/2021-08-01--001-author.csv
+        relativeToChangeLogFile: true
+        separator: ;
+        quotChar: '"'
+        seperator: ';'
+        encoding: UTF-8
+        tableName: author

@@ -1,0 +1,77 @@
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Книги</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-primary">
+    <a href="/genre" class="btn btn-primary btn-lg active" role="button">Жанры</a>
+    <a href="/book" class="btn btn-primary btn-lg disabled" role="button">Книги</a>
+    <a href="/author" class="btn btn-primary btn-lg active" role="button">Авторы</a>
+
+</nav>
+<hr>
+<div class="px-5 border-dark ">
+    <form id="add-form" th:action="@{/book/add}" th:method="post" th:object="${newBook}">
+        <div class="form-group row">
+            <label for="book-name" class="col-sm-2 col-form-label">Название книги:</label>
+            <div class="col-sm-6">
+                <input id="book-name" name="bookName" type="text" th:field="*{name}" class="form-control">
+            </div>
+            <div class="p-1 mb-2 bg-danger text-white rounded" th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}"/>
+        </div>
+        <div class="form-group row">
+            <label for="author" class="col-sm-2 col-form-label">Автор:</label>
+            <div class="col-sm-6">
+                <select id="author" size="1" name="authorId" class="form-control">
+                    <div th:each="author : ${authors}">
+                        <option th:value="${author.id}" th:text="${author.getFullName()}"></option>
+                    </div>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="genre" class="col-sm-2 col-form-label">Жанр:</label>
+            <div class="col-sm-6">
+                <select id="genre" size="1" name="genreId" class="form-control">
+                    <div th:each="genre : ${genres}">
+                        <option th:value="${genre.id}" th:text="${genre.name}"></option>
+                    </div>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Добавить</button>
+    </form>
+</div>
+<hr>
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Жанр</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.getAuthor().getFullName()}"></td>
+        <td th:text="${book.getGenre().getName()}"></td>
+        <td>
+            <a th:href="@{/book/edit(id=${book.id})}">Редактировать</a>
+            &nbsp;&nbsp;
+            <form th:action="@{/book/delete(id=${book.id})}" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <a href="#" onclick="document.forms[1].submit();">Удалить</a>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Жанры</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+</head>
+<body>
+<nav class="navbar navbar-dark bg-primary">
+    <a href="/author" class="btn btn-primary btn-lg active" role="button">Авторы</a>
+    <a href="/genre" class="btn btn-primary btn-lg disabled" role="button">Жанры</a>
+    <a href="/book" class="btn btn-primary btn-lg active" role="button">Книги</a>
+</nav>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название жанра</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="genre : ${genres}">
+        <td th:text="${genre.id}"></td>
+        <td th:text="${genre.name}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
