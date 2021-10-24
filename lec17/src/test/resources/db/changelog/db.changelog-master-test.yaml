@@ -1,0 +1,18 @@
+databaseChangeLog:
+- include:
+    file: classpath:db/changelog/schema/2021-08-01--001-genre.yml
+- include:
+    file: classpath:db/changelog/schema/2021-08-01--001-author.yml
+- include:
+    file: classpath:db/changelog/schema/2021-08-01--001-book.yml
+- include:
+    file: classpath:db/changelog/schema/2021-09-10--001-bookComment.yml
+
+- include:
+    file: db/changelog/data/2021-08-01--001-test-genre.yml
+- include:
+    file: db/changelog/data/2021-08-01--001-test-author.yml
+- include:
+    file: db/changelog/data/2021-08-01--001-test-book.yml
+- include:
+      file: db/changelog/data/2021-08-01--001-test-commentBook.yml
