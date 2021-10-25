@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:bookdb
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  h2:
+    console:
+      enabled: true
+  liquibase:
+    enabled: true
