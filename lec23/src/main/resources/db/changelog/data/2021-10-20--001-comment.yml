@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021-10-20--001-comment-test-data
+      author: dmitriy.bondarchuk
+      context: test
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: id
+        file: classpath:db/changelog/data/data/2021-10-20--001-comment.csv
+        relativeToChangeLogFile: true
+        separator: ;
+        quotChar: '"'
+        seperator: ';'
+        encoding: UTF-8
+        tableName: commentBook

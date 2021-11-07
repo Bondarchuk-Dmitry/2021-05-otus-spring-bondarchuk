@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021-08-01--001-genre
+      author: dmitriy.bondarchuk
+      changes:
+        - createTable:
+            tableName: user
+            remarks: Пользователи
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: user_pk
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(50)
+                  remarks: Имя пользователя
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(50)
+                  remarks: Пароль
+                  constraints:
+                    nullable: false
+              - column:
+                  name: authority
+                  type: varchar(1000)
+                  remarks: Роли
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created
+                  type: timestamp without time zone
+                  defaultValue: now()
+                  constraints:
+                    nullable: false

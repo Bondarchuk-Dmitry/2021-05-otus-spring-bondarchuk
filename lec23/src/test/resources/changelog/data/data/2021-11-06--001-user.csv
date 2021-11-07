@@ -1,0 +1,3 @@
+id;username;password;authority
+1;admin;123456;ROLE_USER,ROLE_ADMIN
+2;user;654321;ROLE_USER
