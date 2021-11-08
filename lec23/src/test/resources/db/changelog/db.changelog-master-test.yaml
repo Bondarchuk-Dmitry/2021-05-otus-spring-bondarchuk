@@ -8,7 +8,7 @@ databaseChangeLog:
 - include:
     file: classpath:db/changelog/schema/2021-09-10--001-bookComment.yml
 - include:
-      file: classpath:db/changelog/schema/2021-11-06--001-user.yml
+    file: classpath:db/changelog/schema/2021-11-06--001-user.yml
 
 - include:
     file: db/changelog/data/2021-08-01--001-test-genre.yml
@@ -17,6 +17,6 @@ databaseChangeLog:
 - include:
     file: db/changelog/data/2021-08-01--001-test-book.yml
 - include:
-      file: db/changelog/data/2021-08-01--001-test-commentBook.yml
+    file: db/changelog/data/2021-08-01--001-test-commentBook.yml
 - include:
-      file: classpath:db/changelog/data/2021-11-06--001-user.yml
+    file: db/changelog/data/2021-11-06--001-test-user.yml
