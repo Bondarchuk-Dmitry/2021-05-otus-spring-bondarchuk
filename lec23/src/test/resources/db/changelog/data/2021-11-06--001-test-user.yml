@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021-11-06--001-user-test-data
+      author: dmitriy.bondarchuk
+      context: test
+      runOnChange: true
+      loadUpdateData:
+        primaryKey: id
+        file: classpath:db/changelog/data/data/2021-11-06--001-test-user.csv
+        relativeToChangeLogFile: true
+        separator: ;
+        quotChar: '"'
+        seperator: ';'
+        encoding: UTF-8
+        tableName: user
